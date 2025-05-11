@@ -423,15 +423,7 @@
             this.userControlCheckOut.TabIndex = 0;
             this.userControlCheckOut.Visible = false;
             // 
-            this.userControlRoomType.BackColor = System.Drawing.Color.Linen;
-            this.userControlRoomType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlRoomType.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userControlRoomType.Location = new System.Drawing.Point(0, 0);
-            this.userControlRoomType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.userControlRoomType.Name = "userControlRoomType";
-            this.userControlRoomType.Size = new System.Drawing.Size(1111, 462);
-            this.userControlRoomType.TabIndex = 0;
-            this.userControlRoomType.Visible = false;
+
             // userControlRoom1
             // 
             this.userControlRoom1.BackColor = System.Drawing.Color.Linen;
@@ -530,8 +522,6 @@
         private User_Control.UserControlDashboard userControlDashboard1;
         private User_Control.UserControlCheckOut userControlCheckOut;
         private User_Control.UserControlChart userControlChart;
-        private User_Control.UserControlRoomType userControlRoomType;
-
 
         private System.Windows.Forms.Button btnCheckOut;
         private System.Windows.Forms.Button btnChart;

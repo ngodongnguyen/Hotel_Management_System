@@ -116,8 +116,12 @@ namespace Hotel_Management_System
             userControlRoom1.Hide();
             userControlReservation1.Hide();
             userControlDashboard1.Hide();
-            //userControlCheckOut.Clear();
-            userControlCheckOut.Show();
+            userControlChart.Hide();
+            //userControlCheckOut.Clear();  // Xóa dữ liệu hiện tại trong UserControlCheckOut
+            userControlCheckOut.Show();   // Hiển thị UserControlCheckOut
+
+            // Tải lại dữ liệu cho UserControlCheckOut
+            userControlCheckOut.GetData();
         }
 
         private void btnChart_Click(object sender, EventArgs e)

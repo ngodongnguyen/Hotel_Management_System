@@ -14,7 +14,7 @@ namespace DataLayer
     {
         public bool AddReservation(Reservation reservation)
         {
-            string sql = "INSERT INTO Reservation_Table VALUES (@ReservationRoomType, @ReservationRoomNumber, @ReservationClientID, @ReservationIn, @ReservationOut)";
+            string sql = "INSERT INTO Reservation_Table OUTPUT INSERTED.Reservation_ID VALUES (@ReservationRoomType, @ReservationRoomNumber, @ReservationClientID, @ReservationIn, @ReservationOut);";
             SqlParameter[] parameters = new SqlParameter[]
            {
                 new SqlParameter("@ReservationRoomType", reservation.R_Type),
@@ -26,10 +26,10 @@ namespace DataLayer
             try
             {
                 // Thực thi câu lệnh SQL
-                int result = MyExecuteNonQuery(sql, CommandType.Text, parameters);
+                reservation.ID = (int)MyExecuteScalar(sql, CommandType.Text, parameters);
 
                 // Nếu có ít nhất một bản ghi được thêm vào, trả về true
-                return result > 0;
+                return reservation.ID > 0;
             }
             catch (SqlException)
             {
@@ -49,19 +49,31 @@ namespace DataLayer
                 throw;
             }
         }
+        public DataTable CountOrder()
+        {
+            string sql = "SELECT \r\n    YEAR(r.Reservation_Out) AS Year,\r\n    MONTH(r.Reservation_Out) AS Month,\r\n    COUNT(r.Reservation_Room_Type) AS RoomCount\r\nFROM \r\n    Reservation_Table AS r\r\nJOIN \r\n    CheckOut AS c ON r.Reservation_ID = c.Reservation_ID\r\nWHERE \r\n    c.CheckOut_Status = 'Completed'\r\nGROUP BY \r\n    YEAR(r.Reservation_Out), MONTH(r.Reservation_Out)\r\nORDER BY \r\n    Year, Month;";
+            try
+            {
+                return MyExecuteQuery(sql, CommandType.Text);
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+        }
         public Reservation_Room GetPrice(int reservationId)
         {
             string sql = "SELECT r.Reservation_ID, t.Price " +
                          "FROM Reservation_Table AS r " +
                          "JOIN Room_Table AS t ON r.Reservation_Room_Number = t.Room_Number " +
-                         "WHERE r.Reservation_ID = @Reservation_Id"; // Điều kiện có thể thay đổi theo yêu cầu
+                         "WHERE r.Reservation_Room_Number = @Reservation_Room_Number"; // Điều kiện có thể thay đổi theo yêu cầu
 
             try
             {
                 // Lấy dữ liệu từ cơ sở dữ liệu
                 SqlParameter[] parameter = new SqlParameter[]
                 {
-                    new SqlParameter("@Reservation_Id",reservationId)
+                    new SqlParameter("@Reservation_Room_Number",reservationId)
                 };
 
                 DataTable dt = MyExecuteQuery(sql, CommandType.Text,parameter);
@@ -81,6 +93,23 @@ namespace DataLayer
             catch (SqlException)
             {
                 throw;  // Xử lý ngoại lệ
+            }
+        }
+        public DataTable GetTotalRevenue(DateTime sdate, DateTime edate)
+        {
+            string sql = "SELECT \r\n    CAST(r.Reservation_Out AS DATE) AS CheckOutDate, \r\n    SUM(c.Total_Price) AS TotalRevenue\r\nFROM \r\n    Reservation_Table AS r\r\nJOIN \r\n    CheckOut AS c ON r.Reservation_ID = c.Reservation_ID\r\nWHERE \r\n    c.CheckOut_Status = 'Completed' \r\n    AND r.Reservation_In BETWEEN @startdate AND @endate\r\nGROUP BY \r\n    CAST(r.Reservation_Out AS DATE)\r\nORDER BY \r\n    CheckOutDate;";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@startdate",sdate),
+                new SqlParameter("@endate",edate)
+            };
+            try
+            {
+                return MyExecuteQuery(sql, CommandType.Text, parameters);
+            }
+            catch (SqlException)
+            {
+                throw;
             }
         }
 
@@ -150,6 +179,11 @@ namespace DataLayer
         {
             string sql = "select * from CheckOut, Reservation_Table  where CheckOut.Reservation_ID=Reservation_Table.Reservation_ID";
             // Giả sử bạn đã có phương thức MyExecuteQuery để lấy dữ liệu từ cơ sở dữ liệu
+            return MyExecuteQuery(sql, CommandType.Text);  // Trả về DataTable
+        }
+        public DataTable GetRoomType()
+        {
+            string sql = "select Reservation_Room_Type,count(Reservation_Room_Type) as SoLuong from CheckOut, Reservation_Table  where CheckOut.Reservation_ID=Reservation_Table.Reservation_ID and CheckOut_Status='Completed' group by Reservation_Room_Type";
             return MyExecuteQuery(sql, CommandType.Text);  // Trả về DataTable
         }
 

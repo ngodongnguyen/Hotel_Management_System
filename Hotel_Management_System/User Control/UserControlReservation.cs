@@ -102,7 +102,8 @@ namespace Hotel_Management_System.User_Control
                 if (isAdded)
                 {
                     Reservation_Room reservation_Room = reservationBL.GetPrice(R_Number);
-                    CheckOut checkOut = new CheckOut(R_Number, reservation_Room.Price, "Đang sử dụng");
+                    int tmp = reservation.ID;
+                    CheckOut checkOut = new CheckOut(tmp, reservation_Room.Price, "Đang sử dụng");
                     checkOutBL.AddCheckOut(checkOut);
                     
                     //CheckOut checkOut = new CheckOut(R_Number,)

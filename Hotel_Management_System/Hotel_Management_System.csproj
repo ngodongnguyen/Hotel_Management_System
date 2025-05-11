@@ -53,6 +53,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chart\frmCountTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\frmCountTable.Designer.cs">
+      <DependentUpon>frmCountTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\frmChooseDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\frmChooseDate.Designer.cs">
+      <DependentUpon>frmChooseDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\frmRoomType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\frmRoomType.Designer.cs">
+      <DependentUpon>frmRoomType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\frmTotalRevenue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart\frmTotalRevenue.Designer.cs">
+      <DependentUpon>frmTotalRevenue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FormDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +139,18 @@
     <Compile Include="User Control\UserControlSetting.Designer.cs">
       <DependentUpon>UserControlSetting.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Chart\frmCountTable.resx">
+      <DependentUpon>frmCountTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\frmChooseDate.resx">
+      <DependentUpon>frmChooseDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\frmRoomType.resx">
+      <DependentUpon>frmRoomType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\frmTotalRevenue.resx">
+      <DependentUpon>frmTotalRevenue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

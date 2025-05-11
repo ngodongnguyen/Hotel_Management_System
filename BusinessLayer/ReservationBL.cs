@@ -29,9 +29,21 @@ namespace BusinessLayer
         {
             return reservationDL.GetPrice(reservationId);
         }
+        public DataTable CountOrder()
+        {
+            return reservationDL.CountOrder();
+        }
         public DataTable GetCheckOutData()
         {
             return reservationDL.GetCheckOutData();
+        }
+        public DataTable GetTotalRevenue(DateTime sdate,DateTime edate)
+        {
+            return reservationDL.GetTotalRevenue(sdate,edate);
+        }
+        public DataTable GetRoomType()
+        {
+            return reservationDL.GetRoomType();
         }
 
         public DataTable SearchReservation(string keyword)

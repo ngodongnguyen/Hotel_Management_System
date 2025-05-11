@@ -19,16 +19,19 @@ namespace Hotel_Management_System.User_Control
             InitializeComponent();
             checkOutBL = new CheckOutBL();
         }
-        private void GetData()
+        public void GetData()
         {
             dataGridView1.DataSource = checkOutBL.DisplayCheckOut();
-        }
+            AddCheckOutButtonColumn();
 
+        }
+        //public void Clear()
+        //{
+        //    dataGridView1.DataSource = null;
+        //}
         private void UserControlCheckOut_Load(object sender, EventArgs e)
         {
             GetData();
-            AddCheckOutButtonColumn();
-
         }
         private void AddCheckOutButtonColumn()
         {

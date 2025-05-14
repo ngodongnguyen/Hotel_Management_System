@@ -43,6 +43,10 @@ namespace BusinessLayer
         {
             return roomDL.UpdateReservationRoom(roomNumber,roomAvailable);
         }
+        public bool UpdateRoom(int reservationId)
+        {
+            return roomDL.UpdateRoom(reservationId);
+        }
         public List<string> RoomTypes()
 
         {

@@ -133,6 +133,26 @@ namespace DataLayer
                 throw;
             }
         }
+        public bool UpdateRoom(int Reservation_ID)
+        {
+            string sql = "UPDATE Room_Table\r\nSET Room_Available = 'Yes'\r\nFROM Room_Table r\r\nJOIN Reservation_Table res ON r.Room_Number = res.Reservation_Room_Number\r\nwhere res.Reservation_ID=@Reservation_ID";
+            SqlParameter[] parameters = new SqlParameter[]
+{
+                new SqlParameter("@Reservation_ID",Reservation_ID)
+};
+            try
+            {
+                // Thực thi câu lệnh SQL
+                int result = MyExecuteNonQuery(sql, CommandType.Text, parameters);
+
+                // Nếu có ít nhất một bản ghi được thêm vào, trả về true
+                return result > 0;
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+        }
         public List<string> RoomTypes()
         {
             List<string> types = new List<string>();

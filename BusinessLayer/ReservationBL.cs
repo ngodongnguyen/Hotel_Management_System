@@ -41,11 +41,22 @@ namespace BusinessLayer
         {
             return reservationDL.GetTotalRevenue(sdate,edate);
         }
-        public DataTable GetRoomType()
+        public DataTable GetRoomType(DateTime sdate, DateTime edate)
         {
-            return reservationDL.GetRoomType();
+            return reservationDL.GetRoomType(sdate,edate);
         }
-
+        public DataTable GetInvoiceData(int reservationId)
+        {
+            return reservationDL.GetInvoiceData(reservationId);
+        }
+        public DataTable GetMostFrequentCustomer(DateTime sdate,DateTime edate)
+        {
+            return reservationDL.GetMostFrequentCustomer(sdate, edate);
+        }
+        public DataTable GetTopSpenders(DateTime sdate,DateTime edate)
+        {
+            return reservationDL.GetTopSpenders(sdate, edate);
+        }
         public DataTable SearchReservation(string keyword)
         {
             return reservationDL.SearchReservation(keyword);

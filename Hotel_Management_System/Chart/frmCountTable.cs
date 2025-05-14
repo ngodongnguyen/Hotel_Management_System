@@ -37,7 +37,7 @@ namespace Hotel_Management_System.Chart
                 ChartType = SeriesChartType.Line, // Kiểu biểu đồ đường
                 BorderWidth = 3, // Độ rộng đường
                 BorderColor = Color.Blue,
-                Color = Color.Orange // Đặt màu cho Series (để hiển thị màu trong legend)
+                Color = Color.LightPink // Đặt màu cho Series (để hiển thị màu trong legend)
 
             };
 

@@ -21,17 +21,19 @@ namespace Hotel_Management_System
 
         private void MovePanel(Control btn)
         {
-            panelSlide.Top= btn.Top;
-            panelSlide.Height= btn.Height;  
+            panelSlide.Top = btn.Top;
+            panelSlide.Height = btn.Height;
+            panelSlide.BringToFront();
         }
+
         private void linkLabel_Logout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             DialogResult result= MessageBox.Show("Do you want to Log Out?","Log Out",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
             if (DialogResult.Yes == result)
             {
                 timer1.Stop();
-                Application.Exit();
-                //this.Close();
+                //Application.Exit();
+                this.Close();
             }
         }
 
@@ -54,6 +56,8 @@ namespace Hotel_Management_System
             userControlRoom1.Hide();
             userControlReservation1.Hide();
             userControlDashboard1.Show();
+            userControlChart1.Hide();
+            userControlCheckOut1.Hide();
            
         }
 
@@ -66,7 +70,8 @@ namespace Hotel_Management_System
             userControlRoom1.Hide();
             userControlReservation1.Hide();
             userControlDashboard1.Hide();
-            
+            userControlChart1.Hide();
+            userControlCheckOut1.Hide();
         }
 
         private void buttonRoom_Click(object sender, EventArgs e)
@@ -78,7 +83,8 @@ namespace Hotel_Management_System
             userControlRoom1.Show();
             userControlReservation1.Hide();
             userControlDashboard1.Hide();
-
+            userControlChart1.Hide();
+            userControlCheckOut1.Hide();
         }
 
         private void buttonReservation_Click(object sender, EventArgs e)
@@ -90,6 +96,38 @@ namespace Hotel_Management_System
             userControlReservation1.Clear();
             userControlReservation1.Show();
             userControlDashboard1.Hide();
+            userControlChart1.Hide();
+            userControlCheckOut1.Hide();
+        }
+
+
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            MovePanel(btnCheckOut);
+            userControlSetting1.Hide();
+            userControlClient1.Hide();
+            userControlRoom1.Hide();
+            userControlReservation1.Hide();
+            userControlDashboard1.Hide();
+            userControlChart1.Hide();
+            //userControlCheckOut1.Clear();  // Xóa dữ liệu hiện tại trong UserControlCheckOut
+            userControlCheckOut1.Show();   // Hiển thị UserControlCheckOut
+
+            // Tải lại dữ liệu cho UserControlCheckOut
+            userControlCheckOut1.GetData();
+        }
+
+        private void btnChart_Click(object sender, EventArgs e)
+        {
+            MovePanel(btnChart);
+            userControlSetting1.Hide();
+            userControlClient1.Hide();
+            userControlRoom1.Hide();
+            userControlReservation1.Hide();
+            userControlDashboard1.Hide();
+            //userControlCheckOut1.Clear();
+            userControlCheckOut1.Hide();
+            userControlChart1.Show();
         }
 
         private void buttonSetting_Click(object sender, EventArgs e)
@@ -101,40 +139,10 @@ namespace Hotel_Management_System
             userControlRoom1.Hide();
             userControlReservation1.Hide();
             userControlDashboard1.Hide();
+            userControlChart1.Hide();
+            userControlCheckOut1.Hide();
         }
 
-        private void labelDateTime_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCheckOut_Click(object sender, EventArgs e)
-        {
-            MovePanel(btnCheckOut);
-            userControlSetting1.Hide();
-            userControlClient1.Hide();
-            userControlRoom1.Hide();
-            userControlReservation1.Hide();
-            userControlDashboard1.Hide();
-            userControlChart.Hide();
-            //userControlCheckOut.Clear();  // Xóa dữ liệu hiện tại trong UserControlCheckOut
-            userControlCheckOut.Show();   // Hiển thị UserControlCheckOut
-
-            // Tải lại dữ liệu cho UserControlCheckOut
-            userControlCheckOut.GetData();
-        }
-
-        private void btnChart_Click(object sender, EventArgs e)
-        {
-            MovePanel(btnChart);
-            userControlSetting1.Hide();
-            userControlClient1.Hide();
-            userControlRoom1.Hide();
-            userControlReservation1.Hide();
-            userControlDashboard1.Hide();
-            //userControlCheckOut.Clear();
-            userControlCheckOut.Hide();
-            userControlChart.Show();
-        }
+       
     }
 }

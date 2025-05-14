@@ -32,6 +32,7 @@ namespace Hotel_Management_System.User_Control
             txbPhoneNumber.Clear();
             radioButtonYes.Checked = false;
             radioButtonNo.Checked = false;
+            txtPrice.Clear();
             tabControlRoom.SelectedTab = tpAddRoom;
         }
 
@@ -42,13 +43,17 @@ namespace Hotel_Management_System.User_Control
             type = comboBoxType.SelectedItem?.ToString() ??"";
             phone = txbPhoneNumber.Text.Trim();
             available = radioButtonYes.Checked ? "Yes" : radioButtonNo.Checked? "No":"";
-            decimal price = Convert.ToDecimal(txtPrice.Text);
-
+            decimal price;
+            if (string.IsNullOrWhiteSpace(txtPrice.Text) || !decimal.TryParse(txtPrice.Text, out price))
+            {
+                MessageBox.Show("Please enter a valid price.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Room room = new Room(type,phone,available,price);
 
             try
             {
-                if (comboBoxType.SelectedIndex == -1 || txbPhoneNumber.Text.Trim() == string.Empty || available == "")
+                if (comboBoxType.SelectedIndex == -1 || txbPhoneNumber.Text.Trim() == string.Empty || available == ""|| string.IsNullOrWhiteSpace(txtPrice.Text))
                     MessageBox.Show("Please enter all field!", "Required field", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                 {
@@ -121,6 +126,8 @@ namespace Hotel_Management_System.User_Control
                     radioButtonYes1.Checked = true;
                 if(Available=="No")
                     radioButtonNo1.Checked = true;
+                txtPrice1.Text = row.Cells[4].Value.ToString();
+
             }
         }
 
@@ -201,6 +208,7 @@ namespace Hotel_Management_System.User_Control
             txbPhoneNumber1.Clear();
             radioButtonYes1.Checked = false;
             radioButtonNo1.Checked = false;
+            txtPrice1.Clear();
             Number = -1;
         }
 

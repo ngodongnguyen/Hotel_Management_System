@@ -30,9 +30,9 @@ namespace DataLayer
 
             SqlParameter[] parameters = new SqlParameter[]
             {
-        new SqlParameter("@Reservation_ID", checkOut.Reservation_ID),
-        new SqlParameter("@Price", checkOut.Total_Price),
-        new SqlParameter("@CheckOut_Status", checkOut.CheckOut_Status)
+                new SqlParameter("@Reservation_ID", checkOut.Reservation_ID),
+                new SqlParameter("@Price", checkOut.Total_Price),
+                new SqlParameter("@CheckOut_Status", checkOut.CheckOut_Status)
             };
 
             try
@@ -51,27 +51,46 @@ namespace DataLayer
         }
         public bool UpdateCheckOut(int reservationId)
         {
-            string sql = "UPDATE CheckOut SET CheckOut_Status = @CheckOut_Status WHERE Reservation_ID = @Reservation_ID";
+            string Total = "SELECT r.Reservation_In, r.Reservation_Out, rm.Price " +
+                           "FROM Reservation_Table r " +
+                           "JOIN Room_Table rm ON r.Reservation_Room_Number = rm.Room_Number " +
+                           "WHERE r.Reservation_ID = @resId";
 
-            SqlParameter[] parameters = new SqlParameter[]
+            SqlParameter param = new SqlParameter("@resId", reservationId);
+            DataTable result = MyExecuteQuery(Total, CommandType.Text, new SqlParameter[] { param });
+
+            if (result.Rows.Count > 0)
             {
-        new SqlParameter("@CheckOut_Status", "Completed"),  // Set trạng thái là "Completed"
-        new SqlParameter("@Reservation_ID", reservationId)   // Tham số Reservation_ID để tìm bản ghi cần cập nhật
-            };
+                DateTime checkIn = Convert.ToDateTime(result.Rows[0]["Reservation_In"]);
+                DateTime checkOut = Convert.ToDateTime(result.Rows[0]["Reservation_Out"]);
+                decimal pricePerDay = Convert.ToDecimal(result.Rows[0]["Price"]);
 
-            try
-            {
-                // Thực thi câu lệnh SQL
-                int result = MyExecuteNonQuery(sql, CommandType.Text, parameters);
+                int numDays = (checkOut - checkIn).Days;
+                if (numDays <= 0) numDays = 1;
 
-                // Nếu có ít nhất một bản ghi được cập nhật, trả về true
-                return result > 0;
+                decimal totalPrice = pricePerDay * numDays;
+
+                string sql = "UPDATE CheckOut SET CheckOut_Status = @CheckOut_Status, Total_Price = @total WHERE Reservation_ID = @Reservation_ID";
+
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+            new SqlParameter("@CheckOut_Status", "Completed"),
+            new SqlParameter("@total", totalPrice),
+            new SqlParameter("@Reservation_ID", reservationId)
+                };
+
+                try
+                {
+                    int result1 = MyExecuteNonQuery(sql, CommandType.Text, parameters);
+                    return result1 > 0;
+                }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Error updating CheckOut status", ex);
+                }
             }
-            catch (SqlException ex)
-            {
-                // Xử lý lỗi nếu có lỗi trong quá trình thực thi câu lệnh SQL
-                throw new Exception("Error updating CheckOut status", ex);
-            }
+
+            return false;
         }
 
 

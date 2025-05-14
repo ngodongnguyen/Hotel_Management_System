@@ -21,20 +21,40 @@ namespace Hotel_Management_System.User_Control
 
         private void btnRoom_Click(object sender, EventArgs e)
         {
-            frmRoomType frmRoomType = new frmRoomType();
-            frmRoomType.ShowDialog();
+            frmChooseDate frmChooseDate = new frmChooseDate();
+            frmChooseDate.FormType = "Room"; // Thiết lập kiểu form, ví dụ là Total
+
+            frmChooseDate.ShowDialog();
         }
 
         private void btnTotal_Click(object sender, EventArgs e)
         {
             frmChooseDate frmChooseDate = new frmChooseDate();
+            frmChooseDate.FormType = "Total"; // Thiết lập kiểu form, ví dụ là Room
+
             frmChooseDate.ShowDialog();
         }
 
         private void btnCount_Click(object sender, EventArgs e)
         {
-           frmCountTable frmCountTable = new frmCountTable();
-           frmCountTable.ShowDialog();
+            frmCountTable frmCountTable = new frmCountTable();
+            frmCountTable.ShowDialog();
+        }
+
+        private void btnTopCustomer_Click(object sender, EventArgs e)
+        {
+            frmChooseDate frmChooseDate = new frmChooseDate();
+            frmChooseDate.FormType = "TopC";
+
+            frmChooseDate.ShowDialog();
+        }
+
+        private void btnTopSpenders_Click(object sender, EventArgs e)
+        {
+            frmChooseDate frmChooseDate = new frmChooseDate();
+            frmChooseDate.FormType = "TopSpend";
+
+            frmChooseDate.ShowDialog();
         }
     }
 }

@@ -15,16 +15,20 @@ namespace Hotel_Management_System.Chart
     public partial class frmRoomType : Form
     {
         private ReservationBL reservationBL;
-        public frmRoomType()
+        private DateTime startDate;
+        private DateTime endDate;
+        public frmRoomType(DateTime sDate, DateTime eDate)
         {
             reservationBL = new ReservationBL();
             InitializeComponent();
+            startDate = sDate;
+            endDate = eDate;
             LoadChart();
         }
         private void LoadChart()
         {
             // Lấy dữ liệu từ BusinessLogicLayer
-            DataTable data = reservationBL.GetRoomType();
+            DataTable data = reservationBL.GetRoomType(startDate,endDate);
 
             // Xóa dữ liệu cũ trong Series
             chart1.Series.Clear();

@@ -18,7 +18,7 @@ namespace DataLayer
         //    cn = new SqlConnection(cnStr);
         //}
         public DataProvider() {
-            string cnStr = @"Data Source=NGUYEN;Initial Catalog=Hotel_Management_System;Integrated Security=True;";
+            string cnStr = @"Data Source=localhost\NGHI;Initial Catalog=Hotel_Management_System;Integrated Security=True;";
             cn = new SqlConnection(cnStr);
         }
 

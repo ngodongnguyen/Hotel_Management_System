@@ -92,7 +92,7 @@ namespace Hotel_Management_System.User_Control
             {
                 if (ex.Number == 2627) // Vi phạm UNIQUE constraint (User_Name đã tồn tại)
                 {
-                    MessageBox.Show("Username already exists. Please choose a different one.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Password already exists. Please choose a different one.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -149,7 +149,7 @@ namespace Hotel_Management_System.User_Control
             {
                 if (ex.Number == 2627) // Vi phạm UNIQUE constraint (User_Name đã tồn tại)
                 {
-                    MessageBox.Show("Username already exists. Please choose a different one.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Password already exists. Please choose a different one.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {

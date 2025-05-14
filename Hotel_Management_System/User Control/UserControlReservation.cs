@@ -91,6 +91,12 @@ namespace Hotel_Management_System.User_Control
 
             DateTime In = dateTimePickerIn.Value;
             DateTime Out = dateTimePickerOut.Value;
+            // Kiểm tra ngày check-out phải sau hoặc bằng ngày check-in
+            if (Out < In)
+            {
+                MessageBox.Show("Invalid Date: Check-out date must be the same as or later than the check-in date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             Reservation reservation = new Reservation(R_Type, R_Number, ClientID, In, Out);
 
@@ -103,7 +109,7 @@ namespace Hotel_Management_System.User_Control
                 {
                     Reservation_Room reservation_Room = reservationBL.GetPrice(R_Number);
                     int tmp = reservation.ID;
-                    CheckOut checkOut = new CheckOut(tmp, reservation_Room.Price, "Đang sử dụng");
+                    CheckOut checkOut = new CheckOut(tmp, reservation_Room.Price, "Using");
                     checkOutBL.AddCheckOut(checkOut);
                     
                     //CheckOut checkOut = new CheckOut(R_Number,)
@@ -156,11 +162,11 @@ namespace Hotel_Management_System.User_Control
                 txbClientID1.Text = row.Cells[3].Value.ToString();
                 if (DateTime.TryParse(row.Cells[4].Value?.ToString(), out DateTime checkIn))
                 {
-                    dateTimePickerIn.Value = checkIn;
+                    dateTimePickerIn1.Value = checkIn;
                 }
                 else
                 {
-                    dateTimePickerIn.Value = DateTime.Now;
+                    dateTimePickerIn1.Value = DateTime.Now;
                 }
 
                 if (DateTime.TryParse(row.Cells[5].Value?.ToString(), out DateTime checkOut))
@@ -197,11 +203,21 @@ namespace Hotel_Management_System.User_Control
             string R_Type = comboBoxType1.SelectedItem?.ToString() ?? "";
 
             // Chuyển giá trị từ ComboBox sang int cho 'R_Number'
-            int R_Number = int.Parse(comboBoxNumber1.SelectedItem.ToString());
-            int ID= RID;
+            int R_Number;
+            if (!int.TryParse(comboBoxNumber1.SelectedItem?.ToString(), out R_Number))
+            {
+                MessageBox.Show("Please select a valid room number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int ID = RID;
             DateTime In = dateTimePickerIn1.Value;
             DateTime Out = dateTimePickerOut1.Value;
-
+            if (Out < In)
+            {
+                MessageBox.Show("Invalid Date: Check-out date must be the same as or later than the check-in date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Reservation reservation = new Reservation(ID,R_Type, R_Number, ClientID, In, Out);
             try
             {

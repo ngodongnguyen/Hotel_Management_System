@@ -153,6 +153,16 @@ namespace Hotel_Management_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_invoice_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-invoice-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_minimize_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-minimize-24", resourceCulture);
@@ -166,6 +176,16 @@ namespace Hotel_Management_System.Properties {
         internal static System.Drawing.Bitmap icons8_reservation_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-reservation-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_revenue_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-revenue-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
